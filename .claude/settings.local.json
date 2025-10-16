@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(npx prisma:*)",
+      "Bash(npm run dev:*)",
+      "Bash(env)",
+      "Bash(npm run build:*)",
+      "mcp__nexlayer-mcp__nexlayer_first_steps",
+      "mcp__nexlayer-mcp__nexlayer_get_local_deployment_workflow",
+      "Bash(docker login:*)",
+      "Bash(docker:*)",
+      "Bash(open:*)",
+      "mcp__nexlayer-mcp__nexlayer_get_schema",
+      "mcp__nexlayer-mcp__nexlayer_validate_yaml",
+      "mcp__nexlayer-mcp__nexlayer_deploy",
+      "WebFetch(domain:brave-monkey-aura-carshare.alpha.nexlayer.ai)",
+      "mcp__nexlayer-mcp__nexlayer_extend_deployment",
+      "WebFetch(domain:wizardly-spoonbill-aura-carshare.alpha.nexlayer.ai)",
+      "WebFetch(domain:brave-rail-aura-carshare.alpha.nexlayer.ai)",
+      "WebFetch(domain:angry-louse-aura-carshare.alpha.nexlayer.ai)",
+      "Bash(test:*)",
+      "Bash(docker-compose up:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

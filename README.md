@@ -1,36 +1,206 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Aura - Car Sharing Platform
+
+A modern car sharing platform built with Next.js 15, similar to Turo, that connects car owners with renters in local communities.
+
+## Features
+
+- 🚗 **Car Listings**: Browse and search available cars
+- 📅 **Booking System**: Schedule and manage car rentals
+- 👤 **User Profiles**: Comprehensive user management and profiles
+- 🔒 **Authentication**: Secure sign-in with NextAuth.js
+- 💳 **Payment Ready**: Integration-ready payment system
+- 📱 **Responsive Design**: Mobile-first responsive UI
+- ⭐ **Reviews & Ratings**: User feedback system
+- 🎯 **Smart Filtering**: Advanced search and filtering options
+
+## Tech Stack
+
+- **Frontend**: Next.js 15, React, TypeScript, Tailwind CSS
+- **Backend**: Next.js API Routes
+- **Database**: PostgreSQL with Prisma ORM
+- **Authentication**: NextAuth.js
+- **UI Components**: Headless UI, Lucide Icons
+- **Styling**: Tailwind CSS
+
+## Project Structure
+
+```
+src/
+├── app/                    # Next.js 15 App Router
+│   ├── api/               # API routes
+│   ├── auth/              # Authentication pages
+│   ├── bookings/          # Booking management
+│   ├── cars/              # Car listings and details
+│   ├── list-car/          # Car listing form
+│   ├── profile/           # User profile
+│   └── page.tsx           # Homepage
+├── components/            # Reusable React components
+├── lib/                   # Utility functions and configs
+└── types/                 # TypeScript type definitions
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+ 
+- PostgreSQL database
+- npm or yarn package manager
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd aura-carshare
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   
+   Copy `.env.local` and update with your values:
+   ```bash
+   # Database
+   DATABASE_URL="postgresql://username:password@localhost:5432/aura_carshare"
+   
+   # Next Auth
+   NEXTAUTH_URL="http://localhost:3000"
+   NEXTAUTH_SECRET="your-secret-key-here"
+   
+   # OAuth Providers (optional)
+   GOOGLE_CLIENT_ID="your-google-client-id"
+   GOOGLE_CLIENT_SECRET="your-google-client-secret"
+   ```
+
+4. **Set up the database**
+   ```bash
+   # Generate Prisma client
+   npx prisma generate
+   
+   # Run database migrations
+   npx prisma migrate dev
+   
+   # Seed database (optional)
+   npx prisma db seed
+   ```
+
+5. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Database Schema
+
+The application uses the following main models:
+
+- **User**: User accounts and profiles
+- **Car**: Vehicle listings with details and features
+- **Booking**: Rental reservations and scheduling
+- **Review**: User feedback and ratings
+- **Account/Session**: NextAuth.js authentication
+
+## Key Features
+
+### Car Listings
+- Detailed car information with photos
+- Feature lists and specifications
+- Owner profiles and ratings
+- Location-based search
+
+### Booking System
+- Date/time selection
+- Pricing calculation
+- Booking status management
+- Host-guest communication
+
+### User Management
+- Profile creation and editing
+- Booking history
+- Earnings tracking (for hosts)
+- Review system
+
+### Search & Filtering
+- Location-based search
+- Price range filtering
+- Car type and feature filters
+- Availability calendar
+
+## Development Commands
 
 ```bash
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
+
+# Run linting
+npm run lint
+
+# Database commands
+npx prisma studio          # Open database browser
+npx prisma migrate dev     # Create and apply migrations
+npx prisma generate        # Generate Prisma client
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deployment
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Vercel (Recommended)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Add environment variables in Vercel dashboard
+4. Deploy!
 
-## Learn More
+### Other Platforms
 
-To learn more about Next.js, take a look at the following resources:
+The app can be deployed to any platform that supports Next.js:
+- Netlify
+- Railway
+- Heroku
+- DigitalOcean App Platform
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Environment Variables
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `DATABASE_URL` | PostgreSQL connection string | Yes |
+| `NEXTAUTH_URL` | App URL for authentication | Yes |
+| `NEXTAUTH_SECRET` | Secret for JWT encryption | Yes |
+| `GOOGLE_CLIENT_ID` | Google OAuth client ID | No |
+| `GOOGLE_CLIENT_SECRET` | Google OAuth client secret | No |
 
-## Deploy on Vercel
+## Contributing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Future Enhancements
+
+- [ ] Real-time messaging between hosts and guests
+- [ ] Integration with payment processors (Stripe, PayPal)
+- [ ] Mobile app development
+- [ ] GPS tracking and smart locks integration
+- [ ] Insurance partnership integration
+- [ ] Multi-language support
+- [ ] Advanced analytics dashboard
+
+## Support
+
+For support and questions, please open an issue in the GitHub repository.
