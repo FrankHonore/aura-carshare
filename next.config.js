@@ -3,8 +3,8 @@ const nextConfig = {
   output: 'standalone',
   images: {
     domains: [
-      'localhost', 
-      'placeholder.pics', 
+      'localhost',
+      'placeholder.pics',
       'via.placeholder.com',
       'picsum.photos',
       'images.unsplash.com',
