@@ -55,5 +55,5 @@ EXPOSE 3000
 ENV PORT 3000
 ENV HOSTNAME "0.0.0.0"
 
-# Create startup script that creates fresh database schema
-CMD ["sh", "-c", "echo 'Waiting for database...' && sleep 10 && echo 'Creating fresh database schema...' && npx prisma db push --force-reset --accept-data-loss && echo 'Database schema created successfully. Starting application...' && node server.js"]
+# Startup with database migration (no force reset)
+CMD ["sh", "-c", "sleep 10 && npx prisma db push && node server.js"]
