@@ -1,17 +1,12 @@
 [build]
-  publish = ".next"
   command = "npm run build"
+  publish = ".next"
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "20"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
-[functions]
-  directory = ".netlify/functions"
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
 
 # Environment variables that need to be set in Netlify dashboard:
 # DATABASE_URL
