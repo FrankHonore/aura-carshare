@@ -2,14 +2,6 @@
 const nextConfig = {
   output: 'standalone',
   images: {
-    domains: [
-      'localhost',
-      'placeholder.pics',
-      'via.placeholder.com',
-      'picsum.photos',
-      'images.unsplash.com',
-      'source.unsplash.com'
-    ],
     remotePatterns: [
       {
         protocol: 'https',
