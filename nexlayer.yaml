@@ -1,11 +1,10 @@
 application:
   name: aura-carshare
   pods:
-    - name: app
-      image: registry.nexlayer.io/nexlayer-mcp/frank/aura-carshare:1760628257
-      path: /
-      servicePorts:
-        - 3000
+    - name: "app"
+      image: "registry.nexlayer.io/nexlayer-mcp/frank/aura-carshare:1770580373"
+      path: "/"
+      servicePorts: [3000]
       vars:
         NODE_ENV: production
         PORT: "3000"
