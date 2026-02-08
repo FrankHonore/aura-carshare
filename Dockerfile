@@ -1,4 +1,4 @@
-FROM node:18-alpine AS base
+FROM node:20-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -30,10 +30,13 @@ ENV NODE_ENV production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copy Prisma schema only (no migration files)
+# Copy Prisma schema and config for db push at startup
 COPY --from=builder /app/prisma/schema.prisma ./prisma/schema.prisma
-COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
-COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
+COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
+COPY --from=builder /app/package.json ./
+
+# Install only prisma CLI (with all its dependencies) for db push at startup
+RUN npm install --no-save prisma@7
 
 COPY --from=builder /app/public ./public
 
@@ -45,9 +48,6 @@ RUN chown nextjs:nodejs .next
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Copy the startup script
-COPY --from=builder /app/package.json ./
-
 USER nextjs
 
 EXPOSE 3000
@@ -55,5 +55,5 @@ EXPOSE 3000
 ENV PORT 3000
 ENV HOSTNAME "0.0.0.0"
 
-# Create startup script that creates fresh database schema
+# Push database schema then start the application
 CMD ["sh", "-c", "echo 'Waiting for database...' && sleep 10 && echo 'Creating fresh database schema...' && npx prisma db push --force-reset --accept-data-loss && echo 'Database schema created successfully. Starting application...' && node server.js"]
