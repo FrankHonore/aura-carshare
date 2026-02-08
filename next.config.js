@@ -22,9 +22,6 @@ const nextConfig = {
     ],
     unoptimized: false,
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   typescript: {
     ignoreBuildErrors: true,
   },

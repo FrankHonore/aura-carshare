@@ -1,25 +1,26 @@
 application:
-  name: "aura-carshare"
+  name: aura-carshare
   pods:
     - name: "app"
       image: "registry.nexlayer.io/nexlayer-mcp/frank/aura-carshare:1770580373"
       path: "/"
       servicePorts: [3000]
       vars:
-        NODE_ENV: "production"
+        NODE_ENV: production
         PORT: "3000"
-        DATABASE_URL: "postgresql://postgres:carshare2024@database.pod:5432/aura_carshare"
-        NEXTAUTH_URL: "<% URL %>"
-        NEXTAUTH_SECRET: "nexlayer-secret-2024-production"
-    - name: "database"
-      image: "postgres:14"
-      servicePorts: [5432]
+        DATABASE_URL: postgresql://postgres:carshare2024@database.pod:5432/aura_carshare
+        NEXTAUTH_URL: <% URL %>
+        NEXTAUTH_SECRET: nexlayer-secret-2024-production
+    - name: database
+      image: postgres:14
+      servicePorts:
+        - 5432
       vars:
-        POSTGRES_USER: "postgres"
-        POSTGRES_PASSWORD: "carshare2024"
-        POSTGRES_DB: "aura_carshare"
-        PGDATA: "/var/lib/postgresql/data/pgdata"
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: carshare2024
+        POSTGRES_DB: aura_carshare
+        PGDATA: /var/lib/postgresql/data/pgdata
       volumes:
-        - name: "postgres-data"
-          size: "2Gi"
-          mountPath: "/var/lib/postgresql"
+        - name: postgres-data
+          size: 2Gi
+          mountPath: /var/lib/postgresql
