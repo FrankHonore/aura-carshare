@@ -7,7 +7,11 @@ WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json package-lock.json* ./
-RUN npm ci
+RUN if [ -f package-lock.json ]; then \
+      npm ci --legacy-peer-deps; \
+    else \
+      npm install --legacy-peer-deps; \
+    fi
 
 # Rebuild the source code only when needed
 FROM base AS builder
@@ -30,14 +34,7 @@ ENV NODE_ENV production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copy Prisma schema and config for db push at startup
-COPY --from=builder /app/prisma/schema.prisma ./prisma/schema.prisma
-COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
-COPY --from=builder /app/package.json ./
-
-# Install only prisma CLI (with all its dependencies) for db push at startup
-RUN npm install --no-save prisma@7
-
+# Copy public files and Prisma client
 COPY --from=builder /app/public ./public
 
 # Set the correct permission for prerender cache
@@ -48,6 +45,15 @@ RUN chown nextjs:nodejs .next
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
+# Copy Prisma schema, generated client, and CLI for db push at startup
+COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
+COPY --from=builder --chown=nextjs:nodejs /app/src/generated/prisma ./src/generated/prisma
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/@prisma ./node_modules/@prisma
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/prisma ./node_modules/prisma
+
+# Copy startup script
+COPY --from=builder --chown=nextjs:nodejs /app/scripts/start.sh ./start.sh
+
 USER nextjs
 
 EXPOSE 3000
@@ -55,5 +61,5 @@ EXPOSE 3000
 ENV PORT 3000
 ENV HOSTNAME "0.0.0.0"
 
-# Push database schema then start the application
-CMD ["sh", "-c", "echo 'Waiting for database...' && sleep 10 && echo 'Creating fresh database schema...' && npx prisma db push --force-reset --accept-data-loss && echo 'Database schema created successfully. Starting application...' && node server.js"]
+# Run migrations then start the application
+CMD ["sh", "start.sh"]
