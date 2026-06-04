@@ -12,7 +12,7 @@ export default function Home() {
             <span className="text-blue-600"> Community</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Rent cars from trusted locals in your neighborhood or earn money by sharing your own vehicle. 
+            Rent cars and trucks from trusted locals in your neighborhood or earn money by sharing your own vehicle. 
             Join thousands of car owners and renters in the Aura community.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
