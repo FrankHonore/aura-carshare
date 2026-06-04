@@ -67,7 +67,10 @@ jobs:
             sleep 15
           done
 
-          [ -z "$DEPLOY_URL" ] && [ "$SEEN_PROGRESS" = "0" ] && { echo "::error::Pipeline timed out after 15 min"; exit 1; }
+          if [ -z "$DEPLOY_URL" ] && [ "$SEEN_PROGRESS" = "0" ]; then
+            echo "::error::Pipeline timed out after 15 min"
+            exit 1
+          fi
 
           # Capture final status fields for the PR comment (best-effort; 404 is OK here).
           FINAL_ST=$(curl -s "https://agent.nexlayer.com/v1/pipeline/$PIPELINE_ID" \
