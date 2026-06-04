@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Aura - Car Sharing Platform",
-  description: "Share and rent cars in your community",
+  description: "Share and rent cars where you need it",
 };
 
 export default function RootLayout({
