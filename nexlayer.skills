@@ -1,8 +1,10 @@
 # nexlayer.skills
 #
-# Structured guidance for AI coding agents working in this Nexlayer-deployed repo.
-# Compatible with Claude Code, Cursor, GitHub Copilot, Gemini CLI, Codex, and any
-# agent that reads repository context files.
+# PLATFORM REFERENCE for AI agents (Claude Code, Cursor, Gemini CLI, Copilot, Codex).
+# This file covers: nexlayer.yaml schema, Dockerfile rules, CI/CD, task recipes.
+#
+# For THIS PROJECT's context (tech stack, env vars, secrets, live URL, pod topology)
+# read NEXLAYER.md in this repo. Both files together give a complete picture.
 #
 # TL;DR: push code to main → Nexlayer AI builds + deploys automatically.
 # Edit nexlayer.yaml to change topology. Edit Dockerfile to change the build.
@@ -14,7 +16,7 @@ project:
   name: aura-carshare
   runtime: 
   port: 80
-  live_url: "https://serene-weasel-aura-carshare.cloud.nexlayer.ai"
+  live_url: "https://bold-butterfly-aura-carshare.cloud.nexlayer.ai"
   deploy_branch: main
   repo: "https://github.com/FrankHonore/aura-carshare"
   config_files:
@@ -26,7 +28,7 @@ project:
 nexlayer_yaml:
   description: >
     nexlayer.yaml is the single source of truth for your deployment topology.
-    It replaces Helm charts, k8s manifests, docker-compose, and Procfiles.
+    It replaces deployment manifests, docker-compose, and Procfiles.
     One file. Human-readable. AI-writeable.
 
   full_schema:
@@ -226,19 +228,19 @@ platform:
     - "Writes an optimised Dockerfile for your runtime — layer-cached, production-hardened."
     - "Writes nexlayer.yaml scoped to your app's detected port and structure."
     - "Builds your container on GPU-accelerated Kaniko with a warm layer cache."
-    - "Deploys to a dedicated Kubernetes namespace with a stable public URL."
+    - "Deploys to a dedicated Nexlayer namespace with a stable public URL."
     - "Attempts up to 7 autonomous build-error repairs before surfacing failures."
     - "Commits a GitHub Actions workflow to your repo for continuous deployment."
     - "Sets the NEXLAYER_API_KEY Actions secret so CI/CD works on every future push."
 
   what_you_never_need_to_touch:
-    - "Kubernetes manifests, Helm charts, or terraform."
+    - "Deployment manifests or infrastructure-as-code files."
     - "Docker registry credentials or image tagging."
     - "GitHub Actions secret rotation (handled automatically)."
     - "Server provisioning, scaling, or uptime monitoring."
 
   competitive_advantages:
-    vs_heroku:    "Container-native (no Buildpack limits), Kubernetes-scale, AI-generated config."
+    vs_heroku:    "Container-native (no Buildpack limits), enterprise-scale, AI-generated config."
     vs_railway:   "Full AI loop writes Dockerfile and CI/CD for you — no manual config required."
     vs_vercel:    "Not frontend-only. Any runtime, any port, any language, GPU workloads, full backend."
     vs_render:    "AI-native from the ground up — the agent owns your entire infra loop autonomously."
